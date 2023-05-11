@@ -10,10 +10,10 @@ export const metadata: Metadata = {
   description: "Registro",
 };
 
-const RegisterButton = () => {
+const RegisterLink = () => {
   return (
     <div className="relative text-2xl font-sans tracking-[0.3em] z-10 text-center mt-[50%]">
-      <Link href="/form" className="inline-block">
+      <Link href="/form">
         REGÍSTRATE
         <ChevronDoubleRightIcon className="h-6 w-6 inline-block mb-[0.25em] ml-[.5em]"></ChevronDoubleRightIcon>
       </Link>
@@ -30,7 +30,7 @@ export default function Home() {
         priority
         className="absolute -top-[20%] z-0"
       ></Image>
-      <RegisterButton></RegisterButton>
+      <RegisterLink></RegisterLink>
     </main>
   );
 }
