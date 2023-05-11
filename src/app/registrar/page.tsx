@@ -5,7 +5,13 @@ import logo from "../../../public/Logo-White-Vertical.png";
 import Image from "next/image";
 import Form from "@/components/Form";
 
-const questionBank = [];
+const questionBank = [
+  {
+    prompt: "This is a test question?",
+    alternatives: { a: "this", b: "is", c: "test" },
+    answer: "c",
+  },
+];
 
 interface FormTypes {}
 
