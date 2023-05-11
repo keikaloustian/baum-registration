@@ -7,7 +7,7 @@ import { ChevronDoubleRightIcon } from "@heroicons/react/24/outline";
 
 export const metadata: Metadata = {
   title: "Baum Festival",
-  description: "Registro",
+  description: "Registro sorteo Baum Festival",
 };
 
 const RegisterLink = () => {
