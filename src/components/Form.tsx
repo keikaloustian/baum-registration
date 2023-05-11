@@ -1,5 +1,9 @@
 "use client";
 
+// Define course options for the scholarship giveaway
+const option1 = "Producción Musical";
+const option2 = "DJ";
+
 export default function Form({ formData, setFormData }) {
   return (
     <form className="col-span-4 flex flex-col p-12 gap-8">
@@ -65,15 +69,15 @@ export default function Form({ formData, setFormData }) {
         <input
           id="opt1"
           type="radio"
-          value="curso1"
+          value={option1}
           name="opcion"
-          checked={formData.opcion === "curso1"}
+          checked={formData.opcion === option1}
           onChange={(e) => {
             setFormData({ ...formData, opcion: e.target.value });
           }}
         ></input>
         <label className="m-2" htmlFor="opt1">
-          Curso 1
+          {option1}
         </label>
 
         <br />
@@ -82,15 +86,15 @@ export default function Form({ formData, setFormData }) {
         <input
           id="opt2"
           type="radio"
-          value="curso2"
+          value={option2}
           name="opcion"
-          checked={formData.opcion === "curso2"}
+          checked={formData.opcion === option2}
           onChange={(e) => {
             setFormData({ ...formData, opcion: e.target.value });
           }}
         ></input>
         <label className="m-2" htmlFor="opt2">
-          Curso 2
+          {option2}
         </label>
       </div>
     </form>
