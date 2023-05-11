@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 const RegisterLink = () => {
   return (
     <div className="relative text-2xl font-sans tracking-[0.3em] z-10 text-center mt-[50%]">
-      <Link href="/form">
+      <Link href="/registrar">
         REGÍSTRATE
         <ChevronDoubleRightIcon className="h-6 w-6 inline-block mb-[0.25em] ml-[.5em]"></ChevronDoubleRightIcon>
       </Link>
