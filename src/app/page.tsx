@@ -14,7 +14,7 @@ const RegisterButton = () => {
   return (
     <div className="relative text-2xl font-sans tracking-[0.3em] z-10 text-center mt-[50%]">
       <Link href="/form" className="inline-block">
-        REGISTRAR
+        REGÍSTRATE
         <ChevronDoubleRightIcon className="h-6 w-6 inline-block mb-[0.25em] ml-[.5em]"></ChevronDoubleRightIcon>
       </Link>
     </div>
@@ -28,7 +28,7 @@ export default function Home() {
         src={heroLogo}
         alt="Baum Music School Logo"
         priority
-        className="absolute -top-1/4 z-0"
+        className="absolute -top-[20%] z-0"
       ></Image>
       <RegisterButton></RegisterButton>
     </main>
