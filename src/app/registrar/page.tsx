@@ -7,32 +7,33 @@ import Form from "@/components/Form";
 import fiveRandomNumsBetween from "@/utils/fiveRandomNums";
 import NextStepButton from "@/components/NextStepButton";
 import PreviousStepButton from "@/components/PreviousStepButton";
+import Question from "@/components/Question";
 
 const questionBank = [
   {
-    prompt: "QUESTION 1",
-    alternatives: { a: "this", b: "is", c: "test" },
-    answer: "c",
+    prompt: "Prompt 1",
+    alternatives: { a: "Text", b: "Text", c: "Text" },
+    answer: "a",
   },
   {
-    prompt: "QUESTION 2",
-    alternatives: { a: "this", b: "is", c: "test" },
-    answer: "b",
-  },
-  {
-    prompt: "QUESTION 3",
-    alternatives: { a: "this", b: "is", c: "test" },
-    answer: "b",
-  },
-  {
-    prompt: "QUESTION 4",
+    prompt: "Prompt 2",
     alternatives: { a: "this", b: "is", c: "test" },
     answer: "a",
   },
   {
-    prompt: "QUESTION 5",
+    prompt: "Prompt 3",
     alternatives: { a: "this", b: "is", c: "test" },
-    answer: "c",
+    answer: "a",
+  },
+  {
+    prompt: "Prompt 4",
+    alternatives: { a: "this", b: "is", c: "test" },
+    answer: "a",
+  },
+  {
+    prompt: "Prompt 5",
+    alternatives: { a: "this", b: "is", c: "test" },
+    answer: "a",
   },
 ];
 
@@ -50,7 +51,7 @@ const questionIndices = fiveRandomNumsBetween(0, 4);
 
 export default function FormAndQs() {
   // Step system through form and questions
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(2);
   const nextStep = () => {
     if (step < 6) {
       setStep(step + 1);
@@ -62,12 +63,16 @@ export default function FormAndQs() {
     }
   };
 
+  // User data
   const [formData, setFormData] = useState({
     nombre: "",
     celular: "",
     email: "",
     opcion: "",
   });
+
+  // Question answer correctness
+  const [qResults, setQResults] = useState([false, false, false, false, false]);
 
   return (
     <main className="grid grid-cols-10 min-h-screen bg-white">
@@ -87,19 +92,54 @@ export default function FormAndQs() {
       )}
 
       {/* Q1 */}
-      {step === 2 && <p>{questionIndices[step - 2]}</p>}
+      {step === 2 && (
+        <Question
+          question={questionBank[questionIndices[step - 2]]}
+          step={step}
+          qResults={qResults}
+          setQResults={setQResults}
+        ></Question>
+      )}
 
       {/* Q2 */}
-      {step === 3 && <p>{questionIndices[step - 2]}</p>}
+      {step === 3 && (
+        <Question
+          question={questionBank[questionIndices[step - 2]]}
+          step={step}
+          qResults={qResults}
+          setQResults={setQResults}
+        ></Question>
+      )}
 
       {/* Q3 */}
-      {step === 4 && <p>{questionIndices[step - 2]}</p>}
+      {step === 4 && (
+        <Question
+          question={questionBank[questionIndices[step - 2]]}
+          step={step}
+          qResults={qResults}
+          setQResults={setQResults}
+        ></Question>
+      )}
 
       {/* Q4 */}
-      {step === 5 && <p>{questionIndices[step - 2]}</p>}
+      {step === 5 && (
+        <Question
+          question={questionBank[questionIndices[step - 2]]}
+          step={step}
+          qResults={qResults}
+          setQResults={setQResults}
+        ></Question>
+      )}
 
       {/* Q5 */}
-      {step === 6 && <p>{questionIndices[step - 2]}</p>}
+      {step === 6 && (
+        <Question
+          question={questionBank[questionIndices[step - 2]]}
+          step={step}
+          qResults={qResults}
+          setQResults={setQResults}
+        ></Question>
+      )}
 
       {step < 6 && <NextStepButton clickHandler={nextStep}></NextStepButton>}
 

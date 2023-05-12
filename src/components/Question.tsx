@@ -19,6 +19,7 @@ export default function Question({ question, step, qResults, setQResults }) {
                 id={key}
                 name="alternatives"
                 onChange={() => {
+                  // Update qResults state with bool answer is correct or not
                   const newResults = [...qResults];
                   newResults[step - 2] = key === question.answer;
                   setQResults(newResults);
