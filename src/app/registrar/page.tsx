@@ -44,14 +44,15 @@ const questionIndices = fiveRandomNumsBetween(0, 4);
 
 // const validateForm = () => {};
 
-// const formHandler = (e: SyntheticEvent) => {
-//   e.preventDefault();
-//   alert("submitted");
-// };
+const submitData = (data, results) => {
+  const payload = { ...data };
+  payload.allCorrect = results.every((answer: Boolean) => answer === true);
+  alert("submitted" + JSON.stringify(payload));
+};
 
 export default function FormAndQs() {
   // Step system through form and questions
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
   const nextStep = () => {
     if (step < 6) {
       setStep(step + 1);
@@ -63,7 +64,7 @@ export default function FormAndQs() {
     }
   };
 
-  // User data
+  // Registration form data
   const [formData, setFormData] = useState({
     nombre: "",
     celular: "",
@@ -139,6 +140,10 @@ export default function FormAndQs() {
           qResults={qResults}
           setQResults={setQResults}
         ></Question>
+      )}
+
+      {step === 6 && (
+        <button onClick={() => submitData(formData, qResults)}>Submit</button>
       )}
 
       {step < 6 && <NextStepButton clickHandler={nextStep}></NextStepButton>}
