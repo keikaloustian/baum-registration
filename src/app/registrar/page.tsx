@@ -5,6 +5,8 @@ import logo from "../../../public/Logo-White-Vertical.png";
 import Image from "next/image";
 import Form from "@/components/Form";
 import fiveRandomNumsBetween from "@/utils/fiveRandomNums";
+import NextStepButton from "@/components/NextStepButton";
+import PreviousStepButton from "@/components/PreviousStepButton";
 
 const questionBank = [
   {
@@ -15,17 +17,17 @@ const questionBank = [
   {
     prompt: "QUESTION 2",
     alternatives: { a: "this", b: "is", c: "test" },
-    answer: "c",
+    answer: "b",
   },
   {
     prompt: "QUESTION 3",
     alternatives: { a: "this", b: "is", c: "test" },
-    answer: "c",
+    answer: "b",
   },
   {
     prompt: "QUESTION 4",
     alternatives: { a: "this", b: "is", c: "test" },
-    answer: "c",
+    answer: "a",
   },
   {
     prompt: "QUESTION 5",
@@ -34,24 +36,30 @@ const questionBank = [
   },
 ];
 
-interface FormTypes {}
+// Arguments must be the min and max indices of the questionBank array
+const questionIndices = fiveRandomNumsBetween(0, 4);
 
-const validateForm = () => {};
+// interface FormTypes {}
 
-const formHandler = (e: SyntheticEvent) => {
-  e.preventDefault();
-  alert("submitted");
-};
+// const validateForm = () => {};
+
+// const formHandler = (e: SyntheticEvent) => {
+//   e.preventDefault();
+//   alert("submitted");
+// };
 
 export default function FormAndQs() {
-  const questionIndices = fiveRandomNumsBetween(0, 4);
-
+  // Step system through form and questions
   const [step, setStep] = useState(1);
   const nextStep = () => {
-    setStep(step + 1);
+    if (step < 6) {
+      setStep(step + 1);
+    }
   };
   const previousStep = () => {
-    setStep(step - 1);
+    if (step > 1) {
+      setStep(step - 1);
+    }
   };
 
   const [formData, setFormData] = useState({
@@ -75,12 +83,11 @@ export default function FormAndQs() {
             ></Image>
           </div>
           <Form formData={formData} setFormData={setFormData}></Form>
-          <button onClick={nextStep}>next</button>
         </>
       )}
 
       {/* Q1 */}
-      {step === 2 && <p>{questionBank[questionIndices[step - 2]]}</p>}
+      {step === 2 && <p>{questionIndices[step - 2]}</p>}
 
       {/* Q2 */}
       {step === 3 && <p>{questionIndices[step - 2]}</p>}
@@ -93,6 +100,12 @@ export default function FormAndQs() {
 
       {/* Q5 */}
       {step === 6 && <p>{questionIndices[step - 2]}</p>}
+
+      {step < 6 && <NextStepButton clickHandler={nextStep}></NextStepButton>}
+
+      {step > 1 && (
+        <PreviousStepButton clickHandler={previousStep}></PreviousStepButton>
+      )}
     </main>
   );
 }
