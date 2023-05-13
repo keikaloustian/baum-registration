@@ -20,7 +20,7 @@ export default function Question({ question, step, qResults, setQResults }) {
         <h1 className="text-5xl tracking-wider font-light flex justify-between my-[15%]">
           Pregunta
           <div className="bg-dgray ml-4 mr-8 h-[1px] w-full self-end"></div>
-          <span className="tracking-[1em]">{step - 1}/5</span>
+          <span className="tracking-[1em] font-semibold">{step - 1}/5</span>
         </h1>
         <h2 className="text-2xl my-16 ml-8">{question.prompt}</h2>
         {/* Iterate over the alternatives object and render for each alt` */}
