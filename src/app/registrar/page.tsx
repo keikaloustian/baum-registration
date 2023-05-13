@@ -38,7 +38,7 @@ const questionBank = [
 ];
 
 // Arguments must be the min and max indices of the questionBank array
-const questionIndices = fiveRandomNumsBetween(0, 4);
+const qIndices = fiveRandomNumsBetween(0, 4);
 
 // interface FormTypes {}
 
@@ -95,7 +95,7 @@ export default function FormAndQs() {
       {/* Q1 */}
       {step === 2 && (
         <Question
-          question={questionBank[questionIndices[step - 2]]}
+          question={questionBank[qIndices[step - 2]]}
           step={step}
           qResults={qResults}
           setQResults={setQResults}
@@ -105,7 +105,7 @@ export default function FormAndQs() {
       {/* Q2 */}
       {step === 3 && (
         <Question
-          question={questionBank[questionIndices[step - 2]]}
+          question={questionBank[qIndices[step - 2]]}
           step={step}
           qResults={qResults}
           setQResults={setQResults}
@@ -115,7 +115,7 @@ export default function FormAndQs() {
       {/* Q3 */}
       {step === 4 && (
         <Question
-          question={questionBank[questionIndices[step - 2]]}
+          question={questionBank[qIndices[step - 2]]}
           step={step}
           qResults={qResults}
           setQResults={setQResults}
@@ -125,7 +125,7 @@ export default function FormAndQs() {
       {/* Q4 */}
       {step === 5 && (
         <Question
-          question={questionBank[questionIndices[step - 2]]}
+          question={questionBank[qIndices[step - 2]]}
           step={step}
           qResults={qResults}
           setQResults={setQResults}
@@ -135,7 +135,7 @@ export default function FormAndQs() {
       {/* Q5 */}
       {step === 6 && (
         <Question
-          question={questionBank[questionIndices[step - 2]]}
+          question={questionBank[qIndices[step - 2]]}
           step={step}
           qResults={qResults}
           setQResults={setQResults}
