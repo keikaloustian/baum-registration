@@ -75,6 +75,9 @@ export default function FormAndQs() {
   // Question answer correctness
   const [qResults, setQResults] = useState([false, false, false, false, false]);
 
+  // Question answers
+  const [qAnswers, setQAnswers] = useState([]);
+
   return (
     <main className="grid grid-cols-10 min-h-screen bg-white">
       {/* FIRST STEP: FORM */}
@@ -97,8 +100,10 @@ export default function FormAndQs() {
         <Question
           question={questionBank[qIndices[step - 2]]}
           step={step}
-          qResults={qResults}
-          setQResults={setQResults}
+          qAnswers={qAnswers}
+          setQAnswers={setQAnswers}
+          // qResults={qResults}
+          // setQResults={setQResults}
         ></Question>
       )}
 
@@ -107,8 +112,10 @@ export default function FormAndQs() {
         <Question
           question={questionBank[qIndices[step - 2]]}
           step={step}
-          qResults={qResults}
-          setQResults={setQResults}
+          qAnswers={qAnswers}
+          setQAnswers={setQAnswers}
+          // qResults={qResults}
+          // setQResults={setQResults}
         ></Question>
       )}
 
@@ -117,8 +124,10 @@ export default function FormAndQs() {
         <Question
           question={questionBank[qIndices[step - 2]]}
           step={step}
-          qResults={qResults}
-          setQResults={setQResults}
+          qAnswers={qAnswers}
+          setQAnswers={setQAnswers}
+          // qResults={qResults}
+          // setQResults={setQResults}
         ></Question>
       )}
 
@@ -127,8 +136,10 @@ export default function FormAndQs() {
         <Question
           question={questionBank[qIndices[step - 2]]}
           step={step}
-          qResults={qResults}
-          setQResults={setQResults}
+          qAnswers={qAnswers}
+          setQAnswers={setQAnswers}
+          // qResults={qResults}
+          // setQResults={setQResults}
         ></Question>
       )}
 
@@ -137,8 +148,10 @@ export default function FormAndQs() {
         <Question
           question={questionBank[qIndices[step - 2]]}
           step={step}
-          qResults={qResults}
-          setQResults={setQResults}
+          qAnswers={qAnswers}
+          setQAnswers={setQAnswers}
+          // qResults={qResults}
+          // setQResults={setQResults}
         ></Question>
       )}
 

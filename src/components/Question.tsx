@@ -1,4 +1,11 @@
-export default function Question({ question, step, qResults, setQResults }) {
+export default function Question({
+  question,
+  step,
+  qResults,
+  setQResults,
+  qAnswers,
+  setQAnswers,
+}) {
   // const obj = {
   //   prompt: "QUESTION 1",
   //   alternatives: { a: "this", b: "is", c: "test" },
@@ -32,11 +39,16 @@ export default function Question({ question, step, qResults, setQResults }) {
                   type="radio"
                   id={key}
                   name="alternatives"
+                  checked={qAnswers[step - 2] === key}
                   onChange={() => {
-                    // Update qResults state with bool answer is correct or not
-                    const newResults = [...qResults];
-                    newResults[step - 2] = key === question.answer;
-                    setQResults(newResults);
+                    // Update qAnswers
+                    const newAnswers = [...qAnswers];
+                    newAnswers[step - 2] = key;
+                    setQAnswers(newAnswers);
+                    // // Update qResults state with bool answer is correct or not
+                    // const newResults = [...qResults];
+                    // newResults[step - 2] = key === question.answer;
+                    // setQResults(newResults);
                   }}
                   className="m-3 accent-vpurple"
                 ></input>
