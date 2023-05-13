@@ -44,9 +44,26 @@ const qIndices = fiveRandomNumsBetween(0, 4);
 
 // const validateForm = () => {};
 
-const submitData = (data, results) => {
+const checkAnswers = (answers: string[], qIndices: number[], qBank): number => {
+  let correctAnswers = 0;
+  for (const i in qIndices) {
+    if (answers[i] === qBank[qIndices[i]].answer) {
+      correctAnswers++;
+    }
+  }
+  return correctAnswers;
+};
+
+const submitData = (data, answers, qIndices, qBank) => {
   const payload = { ...data };
-  payload.allCorrect = results.every((answer: Boolean) => answer === true);
+
+  // Check how many correct answers
+  const correctAnswers = checkAnswers(answers, qIndices, qBank);
+
+  // Append to payload
+  payload.respuestasCorrectas = correctAnswers;
+
+  // payload.allCorrect = results.every((answer: Boolean) => answer === true);
   alert("submitted" + JSON.stringify(payload));
 };
 
@@ -73,7 +90,7 @@ export default function FormAndQs() {
   });
 
   // Question answer correctness
-  const [qResults, setQResults] = useState([false, false, false, false, false]);
+  // const [qResults, setQResults] = useState([false, false, false, false, false]);
 
   // Question answers
   const [qAnswers, setQAnswers] = useState([]);
@@ -102,8 +119,6 @@ export default function FormAndQs() {
           step={step}
           qAnswers={qAnswers}
           setQAnswers={setQAnswers}
-          // qResults={qResults}
-          // setQResults={setQResults}
         ></Question>
       )}
 
@@ -114,8 +129,6 @@ export default function FormAndQs() {
           step={step}
           qAnswers={qAnswers}
           setQAnswers={setQAnswers}
-          // qResults={qResults}
-          // setQResults={setQResults}
         ></Question>
       )}
 
@@ -126,8 +139,6 @@ export default function FormAndQs() {
           step={step}
           qAnswers={qAnswers}
           setQAnswers={setQAnswers}
-          // qResults={qResults}
-          // setQResults={setQResults}
         ></Question>
       )}
 
@@ -138,8 +149,6 @@ export default function FormAndQs() {
           step={step}
           qAnswers={qAnswers}
           setQAnswers={setQAnswers}
-          // qResults={qResults}
-          // setQResults={setQResults}
         ></Question>
       )}
 
@@ -150,13 +159,16 @@ export default function FormAndQs() {
           step={step}
           qAnswers={qAnswers}
           setQAnswers={setQAnswers}
-          // qResults={qResults}
-          // setQResults={setQResults}
         ></Question>
       )}
 
       {step === 6 && (
-        <button onClick={() => submitData(formData, qResults)}>Submit</button>
+        <button
+          onClick={() => submitData(formData, qAnswers, qIndices, questionBank)}
+          className="fixed bottom-0 right-0"
+        >
+          Submit
+        </button>
       )}
 
       {step < 6 && <NextStepButton clickHandler={nextStep}></NextStepButton>}

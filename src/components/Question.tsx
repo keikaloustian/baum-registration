@@ -1,3 +1,11 @@
+const randomizer = Math.random();
+const randColour =
+  randomizer <= 0.33
+    ? "bg-elime"
+    : randomizer >= 0.66
+    ? "bg-dpink"
+    : "bg-vpurple";
+
 export default function Question({
   question,
   step,
@@ -11,14 +19,6 @@ export default function Question({
   //   alternatives: { a: "this", b: "is", c: "test" },
   //   answer: "c",
   // };
-
-  const randomizer = Math.random();
-  const randColour =
-    randomizer <= 0.33
-      ? "bg-elime"
-      : randomizer >= 0.66
-      ? "bg-dpink"
-      : "bg-vpurple";
 
   return (
     <>
@@ -45,10 +45,6 @@ export default function Question({
                     const newAnswers = [...qAnswers];
                     newAnswers[step - 2] = key;
                     setQAnswers(newAnswers);
-                    // // Update qResults state with bool answer is correct or not
-                    // const newResults = [...qResults];
-                    // newResults[step - 2] = key === question.answer;
-                    // setQResults(newResults);
                   }}
                   className="m-3 accent-vpurple"
                 ></input>
