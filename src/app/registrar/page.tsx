@@ -1,6 +1,6 @@
 "use client";
 
-import { SyntheticEvent, useState } from "react";
+import { useState } from "react";
 import logo from "../../../public/Logo-White-Vertical.png";
 import Image from "next/image";
 import Form from "@/components/Form";
@@ -40,7 +40,13 @@ const questionBank = [
 // Arguments must be the min and max indices of the questionBank array
 const qIndices = fiveRandomNumsBetween(0, 4);
 
-// interface FormTypes {}
+interface FormData {
+  nombre: string;
+  celular: string;
+  email: string;
+  opcion: string;
+  respuestasCorrectas?: number;
+}
 
 // const validateForm = () => {};
 
@@ -54,7 +60,12 @@ const checkAnswers = (answers: string[], qIndices: number[], qBank): number => {
   return correctAnswers;
 };
 
-const submitData = (data, answers, qIndices, qBank) => {
+const submitData = (
+  data: FormData,
+  answers: string[],
+  qIndices: number[],
+  qBank
+) => {
   const payload = { ...data };
 
   // Check how many correct answers
@@ -88,9 +99,6 @@ export default function FormAndQs() {
     email: "",
     opcion: "",
   });
-
-  // Question answer correctness
-  // const [qResults, setQResults] = useState([false, false, false, false, false]);
 
   // Question answers
   const [qAnswers, setQAnswers] = useState([]);
