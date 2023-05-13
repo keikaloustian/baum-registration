@@ -60,7 +60,7 @@ const checkAnswers = (answers: string[], qIndices: number[], qBank): number => {
   return correctAnswers;
 };
 
-const submitData = (
+const submitData = async (
   data: FormData,
   answers: string[],
   qIndices: number[],
@@ -74,8 +74,17 @@ const submitData = (
   // Append to payload
   payload.respuestasCorrectas = correctAnswers;
 
+  // Send POST request to /api/enviar
+  const response = await fetch("/api/enviar", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+  const result = await response.json();
+  console.log(result);
+
   // payload.allCorrect = results.every((answer: Boolean) => answer === true);
-  alert("submitted" + JSON.stringify(payload));
+  // alert("submitted" + JSON.stringify(payload));
 };
 
 export default function FormAndQs() {
