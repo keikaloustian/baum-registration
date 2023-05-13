@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const RegisterLink = () => {
   return (
-    <div className="relative text-2xl font-sans tracking-[0.3em] z-10 text-center mt-[50%]">
+    <div className="text-2xl font-sans tracking-[0.3em] text-center">
       <Link href="/registrar">
         REGÍSTRATE
         <ChevronDoubleRightIcon className="h-6 w-6 inline-block mb-[0.25em] ml-[.5em]"></ChevronDoubleRightIcon>
@@ -23,13 +23,16 @@ const RegisterLink = () => {
 
 export default function Home() {
   return (
-    <main className="bg-elime min-h-screen relative overflow-hidden ">
-      <Image
-        src={heroLogo}
-        alt="Baum Music School Logo"
-        priority
-        className="absolute -top-[20%] z-0"
-      ></Image>
+    <main className="bg-elime min-h-screen flex flex-col justify-evenly">
+      <div className="relative w-[1024px] h-[400px] self-center">
+        <Image
+          src={heroLogo}
+          alt="Baum Music School Logo"
+          priority
+          fill
+          className="object-cover object-center"
+        ></Image>
+      </div>
       <RegisterLink></RegisterLink>
     </main>
   );
