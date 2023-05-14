@@ -81,7 +81,6 @@ const submitData = async (
   });
 
   const result = await response.json();
-  console.log(result);
 
   // payload.allCorrect = results.every((answer: Boolean) => answer === true);
   // alert("submitted" + JSON.stringify(payload));

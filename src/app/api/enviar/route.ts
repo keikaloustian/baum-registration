@@ -1,4 +1,7 @@
 import { NextResponse } from "next/server";
+// import connection from "../../../utils/db";
+
+const mysql = require("mysql2/promise");
 
 // export const runtime = "edge";
 
@@ -7,8 +10,18 @@ import { NextResponse } from "next/server";
 // let frontend know whether it worked or not
 
 export async function POST(request: Request) {
-  const received = await request.json();
-  console.log("received" + received);
+  // Read request body
+  const submittedData = await request.json();
 
-  return NextResponse.json({ received });
+  // Connect to db
+  const connection = await mysql.createConnection(
+    `mysql://${process.env.PLANETSCALE_DB_USERNAME}:${process.env.PLANETSCALE_DB_PASSWORD}@${process.env.PLANETSCALE_DB_HOST}/${process.env.PLANETSCALE_DB}?ssl={"rejectUnauthorized":true}`
+  );
+
+  // Query db with values from request payload
+  const [rows, fields] = await connection.execute("SELECT * FROM registrants");
+
+  console.log(rows, fields);
+
+  return NextResponse.json(rows + fields);
 }
