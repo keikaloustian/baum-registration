@@ -1,6 +1,6 @@
 "use client";
 
-import { SyntheticEvent, useState } from "react";
+import { useState } from "react";
 import logo from "../../../public/Logo-White-Vertical.png";
 import Image from "next/image";
 import Form from "@/components/Form";
@@ -38,15 +38,43 @@ const questionBank = [
 ];
 
 // Arguments must be the min and max indices of the questionBank array
-const questionIndices = fiveRandomNumsBetween(0, 4);
+const qIndices = fiveRandomNumsBetween(0, 4);
 
-// interface FormTypes {}
+interface FormData {
+  nombre: string;
+  celular: string;
+  email: string;
+  opcion: string;
+  respuestasCorrectas?: number;
+}
 
 // const validateForm = () => {};
 
-const submitData = (data, results) => {
+const checkAnswers = (answers: string[], qIndices: number[], qBank): number => {
+  let correctAnswers = 0;
+  for (const i in qIndices) {
+    if (answers[i] === qBank[qIndices[i]].answer) {
+      correctAnswers++;
+    }
+  }
+  return correctAnswers;
+};
+
+const submitData = (
+  data: FormData,
+  answers: string[],
+  qIndices: number[],
+  qBank
+) => {
   const payload = { ...data };
-  payload.allCorrect = results.every((answer: Boolean) => answer === true);
+
+  // Check how many correct answers
+  const correctAnswers = checkAnswers(answers, qIndices, qBank);
+
+  // Append to payload
+  payload.respuestasCorrectas = correctAnswers;
+
+  // payload.allCorrect = results.every((answer: Boolean) => answer === true);
   alert("submitted" + JSON.stringify(payload));
 };
 
@@ -72,8 +100,8 @@ export default function FormAndQs() {
     opcion: "",
   });
 
-  // Question answer correctness
-  const [qResults, setQResults] = useState([false, false, false, false, false]);
+  // Question answers
+  const [qAnswers, setQAnswers] = useState([]);
 
   return (
     <main className="grid grid-cols-10 min-h-screen bg-white">
@@ -95,55 +123,60 @@ export default function FormAndQs() {
       {/* Q1 */}
       {step === 2 && (
         <Question
-          question={questionBank[questionIndices[step - 2]]}
+          question={questionBank[qIndices[step - 2]]}
           step={step}
-          qResults={qResults}
-          setQResults={setQResults}
+          qAnswers={qAnswers}
+          setQAnswers={setQAnswers}
         ></Question>
       )}
 
       {/* Q2 */}
       {step === 3 && (
         <Question
-          question={questionBank[questionIndices[step - 2]]}
+          question={questionBank[qIndices[step - 2]]}
           step={step}
-          qResults={qResults}
-          setQResults={setQResults}
+          qAnswers={qAnswers}
+          setQAnswers={setQAnswers}
         ></Question>
       )}
 
       {/* Q3 */}
       {step === 4 && (
         <Question
-          question={questionBank[questionIndices[step - 2]]}
+          question={questionBank[qIndices[step - 2]]}
           step={step}
-          qResults={qResults}
-          setQResults={setQResults}
+          qAnswers={qAnswers}
+          setQAnswers={setQAnswers}
         ></Question>
       )}
 
       {/* Q4 */}
       {step === 5 && (
         <Question
-          question={questionBank[questionIndices[step - 2]]}
+          question={questionBank[qIndices[step - 2]]}
           step={step}
-          qResults={qResults}
-          setQResults={setQResults}
+          qAnswers={qAnswers}
+          setQAnswers={setQAnswers}
         ></Question>
       )}
 
       {/* Q5 */}
       {step === 6 && (
         <Question
-          question={questionBank[questionIndices[step - 2]]}
+          question={questionBank[qIndices[step - 2]]}
           step={step}
-          qResults={qResults}
-          setQResults={setQResults}
+          qAnswers={qAnswers}
+          setQAnswers={setQAnswers}
         ></Question>
       )}
 
       {step === 6 && (
-        <button onClick={() => submitData(formData, qResults)}>Submit</button>
+        <button
+          onClick={() => submitData(formData, qAnswers, qIndices, questionBank)}
+          className="fixed bottom-0 right-0"
+        >
+          Submit
+        </button>
       )}
 
       {step < 6 && <NextStepButton clickHandler={nextStep}></NextStepButton>}
