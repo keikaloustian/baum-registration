@@ -1,17 +1,14 @@
 import { NextResponse } from "next/server";
 // import connection from "../../../utils/db";
 
-const mysql = require("mysql2/promise");
+import mysql from "mysql2/promise";
 
 // export const runtime = "edge";
-
-// receive a POST request from the frontend
-// save data to database
-// let frontend know whether it worked or not
 
 export async function POST(request: Request) {
   // Read request body
   const submittedData = await request.json();
+  console.log("payload:" + Object.values(submittedData));
 
   // Connect to db
   const connection = await mysql.createConnection(
@@ -19,9 +16,16 @@ export async function POST(request: Request) {
   );
 
   // Query db with values from request payload
-  const [rows, fields] = await connection.execute("SELECT * FROM registrants");
+  const [rows, fields] = await connection.query(
+    "INSERT INTO registrants (nombre, celular, email, opcion, respuestasCorrectas) VALUES (?, ?, ?, ?, ?);",
+    Object.values(submittedData)
+  );
 
-  console.log(rows, fields);
+  // const [rows, fields] = await connection.execute("SELECT * FROM registrants");
 
-  return NextResponse.json(rows + fields);
+  // End connection?
+  // How to let frontend know whether it worked or not
+
+  console.log(rows);
+  return NextResponse.json(rows);
 }
