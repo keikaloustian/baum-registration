@@ -81,9 +81,6 @@ const submitData = async (
   });
 
   const result = await response.json();
-
-  // payload.allCorrect = results.every((answer: Boolean) => answer === true);
-  // alert("submitted" + JSON.stringify(payload));
 };
 
 export default function FormAndQs() {
@@ -102,6 +99,14 @@ export default function FormAndQs() {
 
   // Registration form data
   const [formData, setFormData] = useState({
+    nombre: "",
+    celular: "",
+    email: "",
+    opcion: "",
+  });
+
+  // Form validation errors
+  const [errors, setErrors] = useState({
     nombre: "",
     celular: "",
     email: "",
