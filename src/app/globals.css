@@ -4,7 +4,7 @@
 
 @layer components {
   input {
-    @apply border-[1px] border-lgray rounded;
+    @apply border-[1px] border-lgray rounded px-1;
   }
 
   label {
