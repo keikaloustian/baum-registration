@@ -48,7 +48,53 @@ interface FormData {
   respuestasCorrectas?: number;
 }
 
-// const validateForm = () => {};
+const validateForm = (data: FormData, errors: FormData, setErrors) => {
+  // Reset errors
+  setErrors({
+    nombre: "",
+    celular: "",
+    email: "",
+    opcion: "",
+  });
+
+  // Validate nombre
+  if (!data.nombre) {
+    setErrors((prev) => {
+      return { ...prev, nombre: "Requerido" };
+    });
+  }
+
+  // Validate phone
+  if (!data.celular) {
+    setErrors((prev) => {
+      return { ...prev, celular: "Requerido" };
+    });
+  } else if (data.celular.length < 10) {
+    setErrors((prev) => {
+      return { ...prev, celular: "Número celular debe tener 10 dígitos" };
+    });
+  }
+
+  // Validate email
+  if (!data.email) {
+    setErrors((prev) => {
+      return { ...prev, email: "Requerido" };
+    });
+  } else if (
+    !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)
+  ) {
+    setErrors((prev) => {
+      return { ...prev, email: "Formato de correo electrónico inválido" };
+    });
+  }
+
+  // Validate course selection
+  if (!data.opcion) {
+    setErrors((prev) => {
+      return { ...prev, opcion: "Requerido" };
+    });
+  }
+};
 
 const checkAnswers = (answers: string[], qIndices: number[], qBank): number => {
   let correctAnswers = 0;
@@ -106,7 +152,7 @@ export default function FormAndQs() {
   });
 
   // Form validation errors
-  const [errors, setErrors] = useState({
+  const [formErrors, setFormErrors] = useState({
     nombre: "",
     celular: "",
     email: "",
@@ -130,6 +176,11 @@ export default function FormAndQs() {
             ></Image>
           </div>
           <Form formData={formData} setFormData={setFormData}></Form>
+          <button
+            onClick={() => validateForm(formData, formErrors, setFormErrors)}
+          >
+            VALIDATE
+          </button>
         </>
       )}
 
