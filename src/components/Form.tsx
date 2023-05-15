@@ -1,12 +1,14 @@
 "use client";
 
+import FormError from "./FormError";
+
 // Define course options for the scholarship giveaway
 const option1 = "Producción Musical";
 const option2 = "DJ";
 
-export default function Form({ formData, setFormData }) {
+export default function Form({ formData, setFormData, formErrors }) {
   return (
-    <form className="col-span-4 flex flex-col p-12 gap-8">
+    <form className="col-span-4 flex flex-col p-12 gap-12">
       {/* NOMBRE */}
       <label className="label">
         <span className="after:content-['*'] after:text-vpurple after:font-semibold after:inline-block">
@@ -21,6 +23,7 @@ export default function Form({ formData, setFormData }) {
           className="input"
           maxLength={50}
         />
+        {formErrors.nombre && <FormError message={formErrors.nombre} />}
       </label>
 
       {/* CELULAR */}
@@ -43,6 +46,7 @@ export default function Form({ formData, setFormData }) {
           className="input"
           maxLength={10}
         />
+        {formErrors.celular && <FormError message={formErrors.celular} />}
       </label>
 
       {/* EMAIL */}
@@ -59,12 +63,16 @@ export default function Form({ formData, setFormData }) {
           className="input"
           maxLength={50}
         />
+        {formErrors.email && <FormError message={formErrors.email} />}
       </label>
 
       {/* SCHOLARSHIP OPTIONS */}
-      <p className="text-xl tracking-widest after:content-['*'] after:text-vpurple after:font-semibold after:inline-block">
-        Selecciona un curso para el sorteo de la beca:
-      </p>
+      <div>
+        <p className="text-xl tracking-widest after:content-['*'] after:text-vpurple after:font-semibold after:inline-block mt-2">
+          Selecciona un curso para el sorteo de la beca:
+        </p>
+        {formErrors.opcion && <FormError message={formErrors.opcion} />}
+      </div>
       <div>
         <input
           id="opt1"

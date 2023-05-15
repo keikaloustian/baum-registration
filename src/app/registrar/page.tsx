@@ -49,6 +49,9 @@ interface FormData {
 }
 
 const validateForm = (data: FormData, errors: FormData, setErrors) => {
+  // Initialize flag
+  let anyErrors = false;
+
   // Reset errors
   setErrors({
     nombre: "",
@@ -62,6 +65,7 @@ const validateForm = (data: FormData, errors: FormData, setErrors) => {
     setErrors((prev) => {
       return { ...prev, nombre: "Requerido" };
     });
+    anyErrors = true;
   }
 
   // Validate phone
@@ -69,10 +73,12 @@ const validateForm = (data: FormData, errors: FormData, setErrors) => {
     setErrors((prev) => {
       return { ...prev, celular: "Requerido" };
     });
+    anyErrors = true;
   } else if (data.celular.length < 10) {
     setErrors((prev) => {
       return { ...prev, celular: "Número celular debe tener 10 dígitos" };
     });
+    anyErrors = true;
   }
 
   // Validate email
@@ -80,12 +86,14 @@ const validateForm = (data: FormData, errors: FormData, setErrors) => {
     setErrors((prev) => {
       return { ...prev, email: "Requerido" };
     });
+    anyErrors = true;
   } else if (
     !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)
   ) {
     setErrors((prev) => {
       return { ...prev, email: "Formato de correo electrónico inválido" };
     });
+    anyErrors = true;
   }
 
   // Validate course selection
@@ -93,7 +101,10 @@ const validateForm = (data: FormData, errors: FormData, setErrors) => {
     setErrors((prev) => {
       return { ...prev, opcion: "Requerido" };
     });
+    anyErrors = true;
   }
+
+  return anyErrors;
 };
 
 const checkAnswers = (answers: string[], qIndices: number[], qBank): number => {
@@ -132,11 +143,21 @@ const submitData = async (
 export default function FormAndQs() {
   // Step system through form and questions
   const [step, setStep] = useState(1);
+
   const nextStep = () => {
+    // Validate form from step 1 to 2
+    if (step === 1) {
+      // If there are any errors, do not advance
+      if (validateForm(formData, formErrors, setFormErrors)) {
+        return;
+      }
+    }
+
     if (step < 6) {
       setStep(step + 1);
     }
   };
+
   const previousStep = () => {
     if (step > 1) {
       setStep(step - 1);
@@ -175,12 +196,11 @@ export default function FormAndQs() {
               priority
             ></Image>
           </div>
-          <Form formData={formData} setFormData={setFormData}></Form>
-          <button
-            onClick={() => validateForm(formData, formErrors, setFormErrors)}
-          >
-            VALIDATE
-          </button>
+          <Form
+            formData={formData}
+            setFormData={setFormData}
+            formErrors={formErrors}
+          ></Form>
         </>
       )}
 
