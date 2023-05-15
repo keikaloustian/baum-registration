@@ -18,7 +18,7 @@ export async function POST(request: Request) {
   // const [rows, fields] = await connection.execute("SELECT * FROM registrants");
 
   // Query db with values from request payload
-  const [rows, fields] = await connection.query(
+  const [rows, fields] = await connection.execute(
     "INSERT INTO registrants (nombre, celular, email, opcion, respuestasCorrectas) VALUES (?, ?, ?, ?, ?);",
     Object.values(submittedData)
   );
@@ -30,6 +30,6 @@ export async function POST(request: Request) {
 
   // console.log(process.env);
 
-  console.log(rows, fields);
+  console.log(rows);
   return NextResponse.json(rows);
 }
