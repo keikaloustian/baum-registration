@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import mysql from "mysql2/promise";
 
+// Configuration to use edge runtime (Causing Module not found errors in mysql2)
 // export const runtime = "edge";
 
 export async function POST(request: Request) {
@@ -17,7 +18,7 @@ export async function POST(request: Request) {
   // const [rows, fields] = await connection.execute("SELECT * FROM registrants");
 
   // Query db with values from request payload
-  const [rows, fields] = await connection.query(
+  const [rows, fields] = await connection.execute(
     "INSERT INTO registrants (nombre, celular, email, opcion, respuestasCorrectas) VALUES (?, ?, ?, ?, ?);",
     Object.values(submittedData)
   );
@@ -27,7 +28,7 @@ export async function POST(request: Request) {
 
   // How to let frontend know whether it worked or not?
 
-  console.log(process.env);
+  // console.log(process.env);
 
   console.log(rows);
   return NextResponse.json(rows);
