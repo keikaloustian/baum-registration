@@ -30,6 +30,8 @@ export async function POST(request: Request) {
 
   // How to let frontend know whether it worked or not?
 
+  console.log(process.env);
+
   console.log(rows);
   return NextResponse.json(rows);
 }
