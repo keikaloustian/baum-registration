@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 import mysql from "mysql2/promise";
 
-export const runtime = "edge";
+// export const runtime = "edge";
 
 export async function POST(request: Request) {
   // Read request body
