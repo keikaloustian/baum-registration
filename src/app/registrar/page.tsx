@@ -138,6 +138,7 @@ const submitData = async (
   });
 
   const result = await response.json();
+  alert(result);
 };
 
 export default function FormAndQs() {
