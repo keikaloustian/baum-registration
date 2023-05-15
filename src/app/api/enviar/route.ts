@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 // import connection from "../../../utils/db";
 
 import mysql from "mysql2/promise";
+import { connect } from "http2";
 
 // export const runtime = "edge";
 
@@ -21,9 +22,11 @@ export async function POST(request: Request) {
     Object.values(submittedData)
   );
 
+  // End connection
+  connection.end();
+
   // const [rows, fields] = await connection.execute("SELECT * FROM registrants");
 
-  // End connection?
   // How to let frontend know whether it worked or not?
 
   console.log(rows);
