@@ -12,34 +12,99 @@ import SubmitButton from "@/components/SubmitButton";
 
 const questionBank = [
   {
-    prompt: "Prompt 1",
-    alternatives: { a: "Text", b: "Text", c: "Text" },
+    prompt: "¿EN QUE CIUDAD SE INVENTO EL TECHNO?",
+    alternatives: {
+      a: "BERLIN",
+      b: "DETROIT",
+      c: "IBIZA",
+      d: "CHICAGO",
+    },
+    answer: "b",
+  },
+  {
+    prompt: "¿EN QUE AÑO INICIÓ EL BAUM FESTIVAL?",
+    alternatives: {
+      a: "2017",
+      b: "2022",
+      c: "2013",
+      d: "2015",
+    },
+    answer: "c",
+  },
+  {
+    prompt: "¿EN QUE CIUDAD SE FUNDÓ EL LOVE PARADE?",
+    alternatives: {
+      a: "BERLIN",
+      b: "BARCELONA",
+      c: "MIAMI",
+      d: "AMSTERDAM",
+    },
     answer: "a",
   },
   {
-    prompt: "Prompt 2",
-    alternatives: { a: "this", b: "is", c: "test" },
+    prompt: "¿A QUIENES SE LES CONSIDERA LOS FUNDADORES DEL TECHNO?",
+    alternatives: {
+      a: "JEFF MILLS, CARL CRAIG, KERRI CHANDLER",
+      b: "JUAN ATKINS, OCTAVE ONE, ROBERT HOOD",
+      c: "OSCAR MULERO, DAX J, RODHAD",
+      d: "KEVIN SAUNDERSON, JUAN ATKINS, DERRICK MAY",
+    },
+    answer: "b",
+  },
+  {
+    prompt: "¿CÓMO SE LLAMA EL SELLO DE AMELIE LENS?",
+    alternatives: {
+      a: "KNTXT",
+      b: "EXHALE",
+      c: "SUARA",
+      d: "DRUMCODE",
+    },
     answer: "a",
   },
   {
-    prompt: "Prompt 3",
-    alternatives: { a: "this", b: "is", c: "test" },
+    prompt: "¿CON QUE OTRO NOMBRE SE LE CONOCE A RICHIE HAWTIN?",
+    alternatives: {
+      a: "RICHIE H",
+      b: "PLASTIKMAN",
+      c: "DJ HAWTIN",
+      d: "PLANETARY ASSALUT SYSTEMS",
+    },
+    answer: "b",
+  },
+  {
+    prompt: "¿CUÁL FUE EL PRIMER SELLO DONDE PRENSO SU PRIMER TRACK VITALIC?",
+    alternatives: {
+      a: "INTERNATIONAL DJ GIGOLO RECORDS",
+      b: "MINUS",
+      c: "PLUS 8",
+      d: "BAUM MUSIC RECORDS",
+    },
     answer: "a",
   },
   {
-    prompt: "Prompt 4",
-    alternatives: { a: "this", b: "is", c: "test" },
-    answer: "a",
+    prompt: "¿QUÉ ES UN MOOG?",
+    alternatives: {
+      a: "UNA TORNAMESA",
+      b: "UN REPRODUCTOR DE VINILOS",
+      c: "UN POCILLO PARA TOMAR CAFE",
+      d: "SINTETIZADOR",
+    },
+    answer: "d",
   },
   {
-    prompt: "Prompt 5",
-    alternatives: { a: "this", b: "is", c: "test" },
-    answer: "a",
+    prompt: "¿CUÁL ES LA MARCA MÁS RECONOCIDA DE TORNAMESAS?",
+    alternatives: {
+      a: "DENON",
+      b: "PIONEER",
+      c: "VYNIL",
+      d: "TECHNICS",
+    },
+    answer: "d",
   },
 ];
 
 // Arguments must be the min and max indices of the questionBank array
-const qIndices = fiveRandomNumsBetween(0, 4);
+const qIndices = fiveRandomNumsBetween(0, questionBank.length - 1);
 
 interface FormData {
   nombre: string;
@@ -138,8 +203,23 @@ const submitData = async (
     body: JSON.stringify(payload),
   });
 
+  // Parse response body json to JS object
   const result = await response.json();
-  console.log(result);
+
+  // Report error
+  if (result.status !== 200) {
+    alert("\nSe detectó un error.\n\nPor favor, inténtalo de nuevo.");
+  }
+
+  // Report success
+  if (result.status === 200) {
+    let successMessage = `\n¡Registro completado!\n\nAcertaste ${correctAnswers} de las 5 preguntas`;
+
+    if (correctAnswers === 5) {
+      successMessage += "\n\n¡Ganaste una cerveza gratis!";
+    }
+    alert(successMessage);
+  }
 };
 
 export default function FormAndQs() {
