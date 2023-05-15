@@ -175,7 +175,11 @@ export default function FormAndQs() {
               priority
             ></Image>
           </div>
-          <Form formData={formData} setFormData={setFormData}></Form>
+          <Form
+            formData={formData}
+            setFormData={setFormData}
+            formErrors={formErrors}
+          ></Form>
           <button
             onClick={() => validateForm(formData, formErrors, setFormErrors)}
           >
