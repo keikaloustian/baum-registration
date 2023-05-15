@@ -146,14 +146,6 @@ export default function FormAndQs() {
   const [step, setStep] = useState(1);
 
   const nextStep = () => {
-    // Validate form from step 1 to 2
-    if (step === 1) {
-      // If there are any errors, do not advance
-      if (validateForm(formData, formErrors, setFormErrors)) {
-        return;
-      }
-    }
-
     if (step < 6) {
       setStep(step + 1);
     }
@@ -264,7 +256,24 @@ export default function FormAndQs() {
         </button>
       )}
 
-      {step < 6 && <NextStepButton clickHandler={nextStep}></NextStepButton>}
+      {step < 6 && (
+        <NextStepButton
+          clickHandler={() => {
+            // Validate form from step 1 to 2
+            if (step === 1) {
+              // If there are any errors, do not advance
+              if (validateForm(formData, formErrors, setFormErrors)) {
+                return;
+              }
+            }
+
+            // Advance if question has been answered
+            if (step > 1 && qAnswers[step - 2]) {
+              nextStep();
+            }
+          }}
+        ></NextStepButton>
+      )}
 
       {step > 1 && (
         <PreviousStepButton clickHandler={previousStep}></PreviousStepButton>
