@@ -138,8 +138,23 @@ const submitData = async (
     body: JSON.stringify(payload),
   });
 
+  // Parse response body json to JS object
   const result = await response.json();
-  console.log(result);
+
+  // Report error
+  if (result.status !== 200) {
+    alert("\nSe detectó un error.\n\nPor favor, inténtalo de nuevo.");
+  }
+
+  // Report success
+  if (result.status === 200) {
+    let successMessage = `\n¡Registro completado!\n\nAcertaste ${correctAnswers} de las 5 preguntas`;
+
+    if (correctAnswers === 5) {
+      successMessage += "\n\n¡Ganaste una cerveza gratis!";
+    }
+    alert(successMessage);
+  }
 };
 
 export default function FormAndQs() {
