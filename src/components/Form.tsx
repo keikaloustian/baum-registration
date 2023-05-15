@@ -68,7 +68,7 @@ export default function Form({ formData, setFormData, formErrors }) {
 
       {/* SCHOLARSHIP OPTIONS */}
       <div>
-        <p className="text-xl tracking-widest after:content-['*'] after:text-vpurple after:font-semibold after:inline-block my-2">
+        <p className="text-xl tracking-widest after:content-['*'] after:text-vpurple after:font-semibold after:inline-block mt-2">
           Selecciona un curso para el sorteo de la beca:
         </p>
         {formErrors.opcion && <FormError message={formErrors.opcion} />}
