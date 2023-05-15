@@ -8,6 +8,7 @@ import fiveRandomNumsBetween from "@/utils/fiveRandomNums";
 import NextStepButton from "@/components/NextStepButton";
 import PreviousStepButton from "@/components/PreviousStepButton";
 import Question from "@/components/Question";
+import SubmitButton from "@/components/SubmitButton";
 
 const questionBank = [
   {
@@ -146,14 +147,6 @@ export default function FormAndQs() {
   const [step, setStep] = useState(1);
 
   const nextStep = () => {
-    // Validate form from step 1 to 2
-    if (step === 1) {
-      // If there are any errors, do not advance
-      if (validateForm(formData, formErrors, setFormErrors)) {
-        return;
-      }
-    }
-
     if (step < 6) {
       setStep(step + 1);
     }
@@ -256,15 +249,31 @@ export default function FormAndQs() {
       )}
 
       {step === 6 && (
-        <button
-          onClick={() => submitData(formData, qAnswers, qIndices, questionBank)}
-          className="fixed bottom-0 right-0"
-        >
-          Submit
-        </button>
+        <SubmitButton
+          clickHandler={() =>
+            submitData(formData, qAnswers, qIndices, questionBank)
+          }
+        />
       )}
 
-      {step < 6 && <NextStepButton clickHandler={nextStep}></NextStepButton>}
+      {step < 6 && (
+        <NextStepButton
+          clickHandler={() => {
+            // Validate form between steps 1 and 2
+            if (step === 1) {
+              // If there are any errors, do not advance
+              if (validateForm(formData, formErrors, setFormErrors)) {
+                return;
+              }
+            }
+
+            // Advance if question has been answered
+            if (step > 1 && qAnswers[step - 2]) {
+              nextStep();
+            }
+          }}
+        ></NextStepButton>
+      )}
 
       {step > 1 && (
         <PreviousStepButton clickHandler={previousStep}></PreviousStepButton>
