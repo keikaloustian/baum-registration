@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import mysql from "mysql2/promise";
 
+// Configuration to use edge runtime (Causing Module not found errors in mysql2)
 // export const runtime = "edge";
 
 export async function POST(request: Request) {
@@ -27,8 +28,8 @@ export async function POST(request: Request) {
 
   // How to let frontend know whether it worked or not?
 
-  console.log(process.env);
+  // console.log(process.env);
 
-  console.log(rows);
+  console.log(rows, fields);
   return NextResponse.json(rows);
 }
