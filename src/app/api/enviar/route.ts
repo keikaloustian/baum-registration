@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-// import connection from "../../../utils/db";
 
 import mysql from "mysql2/promise";
 
