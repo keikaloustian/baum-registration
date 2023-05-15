@@ -197,28 +197,37 @@ const submitData = async (
   // Append to payload
   payload.respuestasCorrectas = correctAnswers;
 
-  // Send POST request to /api/enviar
-  const response = await fetch("/api/enviar", {
-    method: "POST",
-    body: JSON.stringify(payload),
-  });
+  try {
+    // Send POST request to /api/enviar
+    const response = await fetch("/api/envia", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    });
 
-  // Parse response body json to JS object
-  const result = await response.json();
+    // Parse response body json to JS object
+    const result = await response.json();
 
-  // Report error
-  if (result.status !== 200) {
-    alert("\nSe detectó un error.\n\nPor favor, inténtalo de nuevo.");
-  }
-
-  // Report success
-  if (result.status === 200) {
-    let successMessage = `\n¡Registro completado!\n\nAcertaste ${correctAnswers} de las 5 preguntas`;
-
-    if (correctAnswers === 5) {
-      successMessage += "\n\n¡Ganaste una cerveza gratis!";
+    // Report error
+    if (result.status !== 200) {
+      alert(
+        "\nOcurrió un error al guardar su información.\n\nPor favor, inténtalo de nuevo."
+      );
     }
-    alert(successMessage);
+
+    // Report success
+    if (result.status === 200) {
+      let successMessage = `\n¡Registro completado!\n\nAcertaste ${correctAnswers} de las 5 preguntas`;
+
+      if (correctAnswers === 5) {
+        successMessage += "\n\n¡Ganaste una cerveza gratis!";
+      }
+      alert(successMessage);
+    }
+  } catch (error) {
+    // console.log("Route error\n" + error);
+    alert(
+      "\nOcurrió un error al enviar sus datos.\n\nPor favor, inténtalo de nuevo."
+    );
   }
 };
 
