@@ -139,7 +139,7 @@ const submitData = async (
   });
 
   const result = await response.json();
-  alert(result);
+  console.log(result);
 };
 
 export default function FormAndQs() {
@@ -248,7 +248,7 @@ export default function FormAndQs() {
         ></Question>
       )}
 
-      {step === 6 && (
+      {step === 6 && qAnswers[step - 2] && (
         <SubmitButton
           clickHandler={() =>
             submitData(formData, qAnswers, qIndices, questionBank)
@@ -265,6 +265,7 @@ export default function FormAndQs() {
               if (validateForm(formData, formErrors, setFormErrors)) {
                 return;
               }
+              nextStep();
             }
 
             // Advance if question has been answered
