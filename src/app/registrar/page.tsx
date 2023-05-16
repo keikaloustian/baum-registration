@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import logo from "../../../public/Logo-White-Vertical.png";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
+
+import logo from "../../../public/Logo-White-Vertical.png";
 import Form from "@/components/Form";
 import fiveRandomNumsBetween from "@/utils/fiveRandomNums";
 import NextStepButton from "@/components/NextStepButton";
@@ -12,7 +14,7 @@ import SubmitButton from "@/components/SubmitButton";
 
 const questionBank = [
   {
-    prompt: "¿EN QUE CIUDAD SE INVENTO EL TECHNO?",
+    prompt: "¿EN QUE CIUDAD SE INVENTÓ EL TECHNO?",
     alternatives: {
       a: "BERLIN",
       b: "DETROIT",
@@ -197,28 +199,38 @@ const submitData = async (
   // Append to payload
   payload.respuestasCorrectas = correctAnswers;
 
-  // Send POST request to /api/enviar
-  const response = await fetch("/api/enviar", {
-    method: "POST",
-    body: JSON.stringify(payload),
-  });
+  try {
+    // Send POST request to /api/enviar
+    const response = await fetch("/api/enviar", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    });
 
-  // Parse response body json to JS object
-  const result = await response.json();
+    // Parse response body json to JS object
+    const result = await response.json();
 
-  // Report error
-  if (result.status !== 200) {
-    alert("\nSe detectó un error.\n\nPor favor, inténtalo de nuevo.");
-  }
-
-  // Report success
-  if (result.status === 200) {
-    let successMessage = `\n¡Registro completado!\n\nAcertaste ${correctAnswers} de las 5 preguntas`;
-
-    if (correctAnswers === 5) {
-      successMessage += "\n\n¡Ganaste una cerveza gratis!";
+    // Report error
+    if (result.status !== 200) {
+      alert(
+        "\nOcurrió un error al guardar su información.\n\nPor favor, inténtalo de nuevo."
+      );
     }
-    alert(successMessage);
+
+    // Report success
+    if (result.status === 200) {
+      let successMessage = `\n¡Registro completado!\n\nAcertaste ${correctAnswers} de las 5 preguntas`;
+
+      if (correctAnswers === 5) {
+        successMessage += "\n\n¡Ganaste una cerveza gratis!";
+      }
+      alert(successMessage);
+      return "success";
+    }
+  } catch (error) {
+    console.log("Route error\n" + error);
+    alert(
+      "\nOcurrió un error al enviar sus datos.\n\nPor favor, inténtalo de nuevo."
+    );
   }
 };
 
@@ -256,6 +268,9 @@ export default function FormAndQs() {
 
   // Question answers
   const [qAnswers, setQAnswers] = useState([]);
+
+  // Router for redirection after submission
+  const router = useRouter();
 
   return (
     <main className="grid grid-cols-10 min-h-screen bg-white">
@@ -330,9 +345,15 @@ export default function FormAndQs() {
 
       {step === 6 && qAnswers[step - 2] && (
         <SubmitButton
-          clickHandler={() =>
-            submitData(formData, qAnswers, qIndices, questionBank)
-          }
+          clickHandler={async () => {
+            // If submission is successful, redirect to home
+            if (
+              (await submitData(formData, qAnswers, qIndices, questionBank)) ===
+              "success"
+            ) {
+              router.push("/");
+            }
+          }}
         />
       )}
 
