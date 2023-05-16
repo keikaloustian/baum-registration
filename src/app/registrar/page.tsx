@@ -287,7 +287,7 @@ export default function FormAndQs() {
             <Image
               src={logo}
               alt="Baum Music School Logo"
-              className="self-center"
+              className="self-center animate-slideUpFade"
               priority
             ></Image>
           </div>
