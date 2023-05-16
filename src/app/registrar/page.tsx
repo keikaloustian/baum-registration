@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import logo from "../../../public/Logo-White-Vertical.png";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
+
+import logo from "../../../public/Logo-White-Vertical.png";
 import Form from "@/components/Form";
 import fiveRandomNumsBetween from "@/utils/fiveRandomNums";
 import NextStepButton from "@/components/NextStepButton";
@@ -12,7 +14,7 @@ import SubmitButton from "@/components/SubmitButton";
 
 const questionBank = [
   {
-    prompt: "¿EN QUE CIUDAD SE INVENTO EL TECHNO?",
+    prompt: "¿EN QUE CIUDAD SE INVENTÓ EL TECHNO?",
     alternatives: {
       a: "BERLIN",
       b: "DETROIT",
@@ -199,7 +201,7 @@ const submitData = async (
 
   try {
     // Send POST request to /api/enviar
-    const response = await fetch("/api/envia", {
+    const response = await fetch("/api/enviar", {
       method: "POST",
       body: JSON.stringify(payload),
     });
@@ -222,9 +224,10 @@ const submitData = async (
         successMessage += "\n\n¡Ganaste una cerveza gratis!";
       }
       alert(successMessage);
+      return "success";
     }
   } catch (error) {
-    // console.log("Route error\n" + error);
+    console.log("Route error\n" + error);
     alert(
       "\nOcurrió un error al enviar sus datos.\n\nPor favor, inténtalo de nuevo."
     );
@@ -265,6 +268,9 @@ export default function FormAndQs() {
 
   // Question answers
   const [qAnswers, setQAnswers] = useState([]);
+
+  // Router for redirection after submission
+  const router = useRouter();
 
   return (
     <main className="grid grid-cols-10 min-h-screen bg-white">
@@ -339,9 +345,15 @@ export default function FormAndQs() {
 
       {step === 6 && qAnswers[step - 2] && (
         <SubmitButton
-          clickHandler={() =>
-            submitData(formData, qAnswers, qIndices, questionBank)
-          }
+          clickHandler={async () => {
+            // If submission is successful, redirect to home
+            if (
+              (await submitData(formData, qAnswers, qIndices, questionBank)) ===
+              "success"
+            ) {
+              router.push("/");
+            }
+          }}
         />
       )}
 
