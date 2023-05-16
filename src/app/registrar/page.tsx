@@ -36,7 +36,7 @@ const questionBank = [
       c: "2013",
       d: "2015",
     },
-    answer: "c",
+    answer: "d",
   },
   {
     prompt: "¿EN QUE CIUDAD SE FUNDÓ EL LOVE PARADE?",
@@ -56,7 +56,7 @@ const questionBank = [
       c: "OSCAR MULERO, DAX J, RODHAD",
       d: "KEVIN SAUNDERSON, JUAN ATKINS, DERRICK MAY",
     },
-    answer: "b",
+    answer: "d",
   },
   {
     prompt: "¿CÓMO SE LLAMA EL SELLO DE AMELIE LENS?",
@@ -66,7 +66,7 @@ const questionBank = [
       c: "SUARA",
       d: "DRUMCODE",
     },
-    answer: "a",
+    answer: "b",
   },
   {
     prompt: "¿CON QUE OTRO NOMBRE SE LE CONOCE A RICHIE HAWTIN?",
@@ -107,6 +107,58 @@ const questionBank = [
       d: "TECHNICS",
     },
     answer: "d",
+  },
+  {
+    prompt:
+      "¿CÓMO SE LLAMA EL EGRESADO DE BAUM MUSIC SCHOOL QUE DEBUTARÁ EN ESTA EDICIÓN DE BAUM FESTIVAL?",
+    alternatives: {
+      a: "FUNK TRIBU",
+      b: "CHEO CUBILLOS",
+      c: "INSURGENT",
+      d: "SANCHEZ JR",
+    },
+    answer: "c",
+  },
+  {
+    prompt: "¿DE QUÉ PAÍS ES NINA KRAVIZ?",
+    alternatives: {
+      a: "REPUBLICA CHECA",
+      b: "RUSIA",
+      c: "UNIÓN SOVIETICA",
+      d: "POLONIA",
+    },
+    answer: "b",
+  },
+  {
+    prompt: "¿CUÁL FUE EL CLUB Y ACTUALMENTE EL SELLO DE SVEN VÃTH?",
+    alternatives: { a: "FABRIC", b: "PACHA", c: "SPACE", d: "COCOON" },
+    answer: "d",
+  },
+  {
+    prompt: "¿EL LEGENDARIO TRACK PRODUCIDO POR BEN KLOCK?",
+    alternatives: { a: "SCORPION", b: "NUMB", c: "SUBZERO", d: "THE BELLS" },
+    answer: "c",
+  },
+  {
+    prompt: "¿QUIEN DE ESTOS ARTISTAS TOCA EN FORMATO 'LIVE ACT'?",
+    alternatives: {
+      a: "NICOLA CRUZ",
+      b: "MIND AGAINST",
+      c: "ANIMAL TRAINER",
+      d: "FARRAGO",
+    },
+    answer: "a",
+  },
+  {
+    prompt:
+      "¿CUAL ES UNO DE LOS SELLOS QUE TIENEN EN COMÚN COLYN, KEVIN DE VRIES, KAS:ST, MIND AGAINST, INNELLEA?",
+    alternatives: {
+      a: "LIFE AND DEATH",
+      b: "AFTERLIFE",
+      c: "INNERVISIONS",
+      d: "SIAMESE",
+    },
+    answer: "b",
   },
 ];
 
