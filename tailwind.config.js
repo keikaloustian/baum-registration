@@ -16,6 +16,20 @@ module.exports = {
         dpink: "#FF00FF",
         elime: "#CCFF00",
       },
+      keyframes: {
+        fadeIn: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
+        slideUp: {
+          "0%": { transform: "translateY(30px)" },
+          "100%": { transform: "translateY(0px)" },
+        },
+      },
+      animation: {
+        slideUpFade: "fadeIn 1.3s ease-in, slideUp 1.3s ease-in-out",
+        fadeIn: "fadeIn 0.5s ease-out",
+      },
     },
   },
   plugins: [],

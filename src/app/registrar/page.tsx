@@ -4,13 +4,18 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
+// Static assets
 import logo from "../../../public/Logo-White-Vertical.png";
+
+// Components
 import Form from "@/components/Form";
-import fiveRandomNumsBetween from "@/utils/fiveRandomNums";
 import NextStepButton from "@/components/NextStepButton";
 import PreviousStepButton from "@/components/PreviousStepButton";
 import Question from "@/components/Question";
 import SubmitButton from "@/components/SubmitButton";
+
+// Helper functions
+import fiveRandomNumsBetween from "@/utils/fiveRandomNums";
 
 const questionBank = [
   {
@@ -105,7 +110,7 @@ const questionBank = [
   },
 ];
 
-// Arguments must be the min and max indices of the questionBank array
+// Array of five numbers pointing to five random questions
 const qIndices = fiveRandomNumsBetween(0, questionBank.length - 1);
 
 interface FormData {
@@ -175,6 +180,7 @@ const validateForm = (data: FormData, errors: FormData, setErrors) => {
   return anyErrors;
 };
 
+// Returns the number of correct answers (out of five)
 const checkAnswers = (answers: string[], qIndices: number[], qBank): number => {
   let correctAnswers = 0;
   for (const i in qIndices) {
@@ -281,7 +287,7 @@ export default function FormAndQs() {
             <Image
               src={logo}
               alt="Baum Music School Logo"
-              className="self-center"
+              className="self-center animate-slideUpFade"
               priority
             ></Image>
           </div>
