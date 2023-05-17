@@ -25,10 +25,10 @@ export default function Results({
           )}
         </div>
         <div className="flex justify-center mb-8 mt-4 relative z-10">
-          <Link href="/" className="flex flex-col">
+          <a href="/" className="flex flex-col">
             <ArrowPathIcon className="h-16 w-16 self-center" />
             <p className="text-lg tracking-wide ">REINICIAR</p>
-          </Link>
+          </a>
         </div>
       </div>
     </div>
