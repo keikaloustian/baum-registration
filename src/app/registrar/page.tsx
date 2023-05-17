@@ -444,7 +444,11 @@ export default function FormAndQs() {
       )}
 
       {/* RESULTS MODAL */}
-      {showResults && <Results />}
+      {showResults && (
+        <Results
+          correctAnswers={checkAnswers(qAnswers, qIndices, questionBank)}
+        />
+      )}
     </main>
   );
 }
