@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
@@ -16,6 +16,7 @@ import SubmitButton from "@/components/SubmitButton";
 
 // Helper functions
 import fiveRandomNumsBetween from "@/utils/fiveRandomNums";
+import Results from "@/components/Results";
 
 const questionBank = [
   {
@@ -173,7 +174,11 @@ interface FormData {
   respuestasCorrectas?: number;
 }
 
-const validateForm = (data: FormData, errors: FormData, setErrors) => {
+const validateForm = (
+  data: FormData,
+  errors: FormData,
+  setErrors: Dispatch<SetStateAction<FormData>>
+) => {
   // Initialize flag
   let anyErrors = false;
 
@@ -187,7 +192,7 @@ const validateForm = (data: FormData, errors: FormData, setErrors) => {
 
   // Validate nombre
   if (!data.nombre) {
-    setErrors((prev) => {
+    setErrors((prev: FormData) => {
       return { ...prev, nombre: "Requerido" };
     });
     anyErrors = true;
@@ -195,12 +200,12 @@ const validateForm = (data: FormData, errors: FormData, setErrors) => {
 
   // Validate phone
   if (!data.celular) {
-    setErrors((prev) => {
+    setErrors((prev: FormData) => {
       return { ...prev, celular: "Requerido" };
     });
     anyErrors = true;
   } else if (data.celular.length < 10) {
-    setErrors((prev) => {
+    setErrors((prev: FormData) => {
       return { ...prev, celular: "Número celular debe tener 10 dígitos" };
     });
     anyErrors = true;
@@ -208,14 +213,14 @@ const validateForm = (data: FormData, errors: FormData, setErrors) => {
 
   // Validate email
   if (!data.email) {
-    setErrors((prev) => {
+    setErrors((prev: FormData) => {
       return { ...prev, email: "Requerido" };
     });
     anyErrors = true;
   } else if (
     !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)
   ) {
-    setErrors((prev) => {
+    setErrors((prev: FormData) => {
       return { ...prev, email: "Formato de correo electrónico inválido" };
     });
     anyErrors = true;
@@ -223,7 +228,7 @@ const validateForm = (data: FormData, errors: FormData, setErrors) => {
 
   // Validate course selection
   if (!data.opcion) {
-    setErrors((prev) => {
+    setErrors((prev: FormData) => {
       return { ...prev, opcion: "Requerido" };
     });
     anyErrors = true;
@@ -276,12 +281,6 @@ const submitData = async (
 
     // Report success
     if (result.status === 200) {
-      let successMessage = `\n¡Registro completado!\n\nAcertaste ${correctAnswers} de las 5 preguntas`;
-
-      if (correctAnswers === 5) {
-        successMessage += "\n\n¡Ganaste una cerveza gratis!";
-      }
-      alert(successMessage);
       return "success";
     }
   } catch (error) {
@@ -326,6 +325,9 @@ export default function FormAndQs() {
 
   // Question answers
   const [qAnswers, setQAnswers] = useState([]);
+
+  // State for showing results modal
+  const [showResults, setShowResults] = useState(false);
 
   // Router for redirection after submission
   const router = useRouter();
@@ -409,12 +411,13 @@ export default function FormAndQs() {
               (await submitData(formData, qAnswers, qIndices, questionBank)) ===
               "success"
             ) {
-              router.push("/");
+              setShowResults(true);
             }
           }}
         />
       )}
 
+      {/* NEXT BUTTON */}
       {step < 6 && (
         <NextStepButton
           clickHandler={() => {
@@ -435,9 +438,13 @@ export default function FormAndQs() {
         ></NextStepButton>
       )}
 
+      {/* PREVIOUS BUTTON */}
       {step > 1 && (
         <PreviousStepButton clickHandler={previousStep}></PreviousStepButton>
       )}
+
+      {/* RESULTS MODAL */}
+      {showResults && <Results />}
     </main>
   );
 }

@@ -11,3 +11,9 @@
     @apply text-lg tracking-wide;
   }
 }
+
+@layer utilities {
+  .clip-diagonal {
+    clip-path: polygon(0 0, 35% 0, 30% 100%, 0 100%);
+  }
+}
