@@ -19,7 +19,7 @@ https://baumfestival-registration.vercel.app/
 
 ## Finished Product
 
-![]()
+![](https://github.com/keikaloustian/baum-registration/blob/main/docs/Baum%20Festival%20Registration.gif)
 
 ## Dependencies
 
