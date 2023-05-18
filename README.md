@@ -1,8 +1,8 @@
 # Baum Festival Registration
 
 Web app built for the 2023 Baum Festival in Bogotá, Corferias, Colombia.  
-Takes registration info from attendants and presents five multiple-choice questions.  
-Respondents who answer them correctly get entered into a course giveaway by Baum Music School.
+Takes registration info from attendants on an iPad and presents five multiple-choice questions.  
+Respondents who answer all five correctly get entered into a course giveaway by Baum Music School.
 
 ## Deployment Link
 
