@@ -6,7 +6,7 @@ Respondents who answer all five correctly get entered into a course giveaway by 
 
 ## Deployment
 
-https://baumfestival-registration.vercel.app/
+https://baumregistration.vercel.app/
 
 ## Tech Stack
 
