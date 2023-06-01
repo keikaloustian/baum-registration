@@ -10,7 +10,7 @@ export default function Question({ question, step, qAnswers, setQAnswers }) {
   return (
     <>
       <div className={`${randColour} h-screen w-[38%] absolute right-0`}></div>
-      <div className=" col-span-8 col-start-2 relative animate-fadeIn">
+      <div className=" col-span-8 col-start-2 relative animate-fadeIn select-none">
         <h1 className="text-5xl tracking-wider font-light flex justify-between my-[15%]">
           Pregunta
           <div className="bg-dgray ml-4 mr-8 h-[1px] w-full self-end"></div>
