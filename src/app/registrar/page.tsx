@@ -1,7 +1,6 @@
 "use client";
 
 import { Dispatch, SetStateAction, useState } from "react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 // Static assets
@@ -317,7 +316,7 @@ export default function FormAndQs() {
     }
   };
 
-  // Registration form data
+  // Form data
   const [formData, setFormData] = useState({
     nombre: "",
     celular: "",
@@ -333,14 +332,11 @@ export default function FormAndQs() {
     opcion: "",
   });
 
-  // Question answers
+  // Answers to the questions
   const [qAnswers, setQAnswers] = useState([]);
 
   // State for showing results modal
   const [showResults, setShowResults] = useState(false);
-
-  // Router for redirection after submission
-  const router = useRouter();
 
   return (
     <main className="grid grid-cols-10 min-h-screen bg-white">
@@ -413,10 +409,10 @@ export default function FormAndQs() {
         ></Question>
       )}
 
+      {/* SUBMIT BUTTON */}
       {step === 6 && qAnswers[step - 2] && (
         <SubmitButton
           clickHandler={async () => {
-            // If submission is successful, redirect to home
             if (
               (await submitData(formData, qAnswers, qIndices, questionBank)) ===
               "success"
