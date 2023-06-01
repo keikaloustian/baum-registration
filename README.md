@@ -18,7 +18,7 @@ https://baumregistration.vercel.app/
 - Vercel
 
 ## Potential Improvements
-- Disable submission button while processing (lack of responsiveness may be causing duplicate entries)
+- [x] ~~Disable submission button while processing (lack of responsiveness may be causing duplicate entries)~~
 
 
 ## Finished Product
