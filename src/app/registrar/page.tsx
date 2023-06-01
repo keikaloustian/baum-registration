@@ -18,6 +18,12 @@ import SubmitButton from "@/components/SubmitButton";
 import fiveRandomNumsBetween from "@/utils/fiveRandomNums";
 import Results from "@/components/Results";
 
+interface QuestionBank {
+  prompt: string;
+  alternatives: { a: string; b: string; c: string; d: string };
+  answer: string;
+}
+
 const questionBank = [
   {
     prompt: "¿EN QUE CIUDAD SE INVENTÓ EL TECHNO?",
@@ -238,7 +244,11 @@ const validateForm = (
 };
 
 // Returns the number of correct answers (out of five)
-const checkAnswers = (answers: string[], qIndices: number[], qBank): number => {
+const checkAnswers = (
+  answers: string[],
+  qIndices: number[],
+  qBank: QuestionBank[]
+): number => {
   let correctAnswers = 0;
   for (const i in qIndices) {
     if (answers[i] === qBank[qIndices[i]].answer) {
@@ -252,7 +262,7 @@ const submitData = async (
   data: FormData,
   answers: string[],
   qIndices: number[],
-  qBank
+  qBank: QuestionBank[]
 ) => {
   const payload = { ...data };
 
