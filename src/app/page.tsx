@@ -6,8 +6,8 @@ import Link from "next/link";
 import { ChevronDoubleRightIcon } from "@heroicons/react/24/outline";
 
 export const metadata: Metadata = {
-  title: "Baum Festival",
-  description: "Registro sorteo Baum Festival",
+  title: "Baum Music School",
+  description: "Inscríbete en el sorteo de cursos de Baum Music School",
 };
 
 const RegisterLink = () => {

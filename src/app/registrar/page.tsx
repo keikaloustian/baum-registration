@@ -1,7 +1,6 @@
 "use client";
 
 import { Dispatch, SetStateAction, useState } from "react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 // Static assets
@@ -17,6 +16,12 @@ import SubmitButton from "@/components/SubmitButton";
 // Helper functions
 import fiveRandomNumsBetween from "@/utils/fiveRandomNums";
 import Results from "@/components/Results";
+
+interface QuestionBank {
+  prompt: string;
+  alternatives: { a: string; b: string; c: string; d: string };
+  answer: string;
+}
 
 const questionBank = [
   {
@@ -238,7 +243,11 @@ const validateForm = (
 };
 
 // Returns the number of correct answers (out of five)
-const checkAnswers = (answers: string[], qIndices: number[], qBank): number => {
+const checkAnswers = (
+  answers: string[],
+  qIndices: number[],
+  qBank: QuestionBank[]
+): number => {
   let correctAnswers = 0;
   for (const i in qIndices) {
     if (answers[i] === qBank[qIndices[i]].answer) {
@@ -252,9 +261,11 @@ const submitData = async (
   data: FormData,
   answers: string[],
   qIndices: number[],
-  qBank
+  qBank: QuestionBank[],
+  setSubmitting: Dispatch<SetStateAction<boolean>>
 ) => {
   const payload = { ...data };
+  setSubmitting(true);
 
   // Check how many correct answers
   const correctAnswers = checkAnswers(answers, qIndices, qBank);
@@ -281,6 +292,7 @@ const submitData = async (
 
     // Report success
     if (result.status === 200) {
+      setSubmitting(false);
       return "success";
     }
   } catch (error) {
@@ -307,7 +319,7 @@ export default function FormAndQs() {
     }
   };
 
-  // Registration form data
+  // Form data
   const [formData, setFormData] = useState({
     nombre: "",
     celular: "",
@@ -323,14 +335,14 @@ export default function FormAndQs() {
     opcion: "",
   });
 
-  // Question answers
+  // Answers to the questions
   const [qAnswers, setQAnswers] = useState([]);
 
   // State for showing results modal
   const [showResults, setShowResults] = useState(false);
 
-  // Router for redirection after submission
-  const router = useRouter();
+  // Data submission state
+  const [submitting, setSubmitting] = useState(false);
 
   return (
     <main className="grid grid-cols-10 min-h-screen bg-white">
@@ -403,13 +415,19 @@ export default function FormAndQs() {
         ></Question>
       )}
 
+      {/* SUBMIT BUTTON */}
       {step === 6 && qAnswers[step - 2] && (
         <SubmitButton
+          submitting={submitting}
           clickHandler={async () => {
-            // If submission is successful, redirect to home
             if (
-              (await submitData(formData, qAnswers, qIndices, questionBank)) ===
-              "success"
+              (await submitData(
+                formData,
+                qAnswers,
+                qIndices,
+                questionBank,
+                setSubmitting
+              )) === "success"
             ) {
               setShowResults(true);
             }

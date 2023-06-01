@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 
 export default function Results({
