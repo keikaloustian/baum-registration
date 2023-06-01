@@ -261,9 +261,11 @@ const submitData = async (
   data: FormData,
   answers: string[],
   qIndices: number[],
-  qBank: QuestionBank[]
+  qBank: QuestionBank[],
+  setSubmitting: Dispatch<SetStateAction<boolean>>
 ) => {
   const payload = { ...data };
+  setSubmitting(true);
 
   // Check how many correct answers
   const correctAnswers = checkAnswers(answers, qIndices, qBank);
@@ -290,6 +292,7 @@ const submitData = async (
 
     // Report success
     if (result.status === 200) {
+      setSubmitting(false);
       return "success";
     }
   } catch (error) {
@@ -337,6 +340,9 @@ export default function FormAndQs() {
 
   // State for showing results modal
   const [showResults, setShowResults] = useState(false);
+
+  // Data submission state
+  const [submitting, setSubmitting] = useState(false);
 
   return (
     <main className="grid grid-cols-10 min-h-screen bg-white">
@@ -412,10 +418,16 @@ export default function FormAndQs() {
       {/* SUBMIT BUTTON */}
       {step === 6 && qAnswers[step - 2] && (
         <SubmitButton
+          submitting={submitting}
           clickHandler={async () => {
             if (
-              (await submitData(formData, qAnswers, qIndices, questionBank)) ===
-              "success"
+              (await submitData(
+                formData,
+                qAnswers,
+                qIndices,
+                questionBank,
+                setSubmitting
+              )) === "success"
             ) {
               setShowResults(true);
             }
