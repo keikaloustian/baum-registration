@@ -12,10 +12,10 @@ import NextStepButton from "@/components/NextStepButton";
 import PreviousStepButton from "@/components/PreviousStepButton";
 import Question from "@/components/Question";
 import SubmitButton from "@/components/SubmitButton";
+import Results from "@/components/Results";
 
 // Helper functions
 import fiveRandomNumsBetween from "@/utils/fiveRandomNums";
-import Results from "@/components/Results";
 
 interface QuestionBank {
   prompt: string;
@@ -288,6 +288,7 @@ const submitData = async (
       alert(
         "\nOcurrió un error al guardar su información.\n\nPor favor, inténtalo de nuevo."
       );
+      setSubmitting(false);
     }
 
     // Report success
