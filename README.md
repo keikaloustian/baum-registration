@@ -1,8 +1,10 @@
-# Baum Music School Registration App
+# Baum Music School Giveaway Registration App
 
-Web app built for the 2023 Baum Festival in Bogotá, Colombia and for future marketing.  
-Takes registration info from attendants and presents five random multiple-choice questions.  
-Respondents who answer all questions correctly get entered into a course giveaway by Baum Music School.
+Web app built for marketing campaign around the 2023 Baum Festival in Bogotá, Colombia.  
+Takes registration information from attendants and presents five random multiple-choice questions.  
+Respondents who answer all questions correctly get entered into a course giveaway by Baum Music School.  
+
+(Database goes to sleep after period of inactivity. New submissions may not work.)
 
 ## Deployment
 
